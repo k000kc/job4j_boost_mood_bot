@@ -14,6 +14,6 @@ public class RecommendationEngine {
 
     @PreDestroy
     public void destroy() {
-        System.out.println("RecommendationEngine will be deatroyed now");
+        System.out.println("RecommendationEngine will be destroyed now");
     }
 }
