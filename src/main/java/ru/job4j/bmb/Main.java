@@ -22,7 +22,7 @@ public class Main {
     public CommandLineRunner initTelegramApi(ApplicationContext ctx) {
         return args -> {
             var bot = ctx.getBean(TelegramBotService.class);
-            bot.recive(new Content());
+            bot.recive(new Content(1L));
         };
     }
 

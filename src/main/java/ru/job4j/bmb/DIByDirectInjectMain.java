@@ -8,6 +8,6 @@ public class DIByDirectInjectMain {
     public static void main(String[] args) {
         var handler = new BotCommandHandler();
         var tg = new TelegramBotService(handler);
-        tg.recive(new Content());
+        tg.recive(new Content(1L));
     }
 }
