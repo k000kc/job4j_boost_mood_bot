@@ -37,7 +37,7 @@ public class MoodService {
         this.achievementRepository = achievementRepository;
     }
 
-    public Content chooseMood(User user,Long moodId) {
+    public Content chooseMood(User user, Long moodId) {
         Mood mood = new Mood();
         mood.setId(moodId);
         MoodLog moodLog = new MoodLog();
