@@ -9,7 +9,7 @@ import java.util.Objects;
 public class MoodLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ig;
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -18,12 +18,12 @@ public class MoodLog {
     private Mood mood;
     private long createAt;
 
-    public Long getIg() {
-        return ig;
+    public Long getId() {
+        return id;
     }
 
-    public void setIg(Long ig) {
-        this.ig = ig;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -59,11 +59,11 @@ public class MoodLog {
             return false;
         }
         MoodLog moodLog = (MoodLog) o;
-        return Objects.equals(ig, moodLog.ig);
+        return Objects.equals(id, moodLog.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ig);
+        return Objects.hash(id);
     }
 }
