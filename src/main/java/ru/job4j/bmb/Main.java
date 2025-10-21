@@ -31,14 +31,6 @@ public class Main {
     }
 
     @Bean
-    public CommandLineRunner initTelegramApi(ApplicationContext ctx) {
-        return args -> {
-            var bot = ctx.getBean(TelegramBotService.class);
-            bot.recive(new Content(1L));
-        };
-    }
-
-    @Bean
     public CommandLineRunner checEnvk(ApplicationContext ctx) {
         return args -> {
             System.out.println(ctx.getEnvironment().getProperty("telegram.bot.name"));
