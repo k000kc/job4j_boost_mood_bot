@@ -1,28 +1,16 @@
 package ru.job4j.bmb.services;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
-import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class AchievementService implements BeanNameAware {
+public class AchievementService implements ApplicationListener<UserEvent> {
 
-    private String beanName;
 
-    @PostConstruct
-    public void init() {
-        System.out.println("AchievementService is going through init.");
-    }
-
-    @PreDestroy
-    public void destroy() {
-        System.out.println("AchievementService will be destroyed now");
-    }
-
+    @Transactional
     @Override
-    public void setBeanName(String name) {
-        this.beanName = name;
-        System.out.println(beanName);
+    public void onApplicationEvent(UserEvent event) {
+        var user = event.getUser();
     }
 }
