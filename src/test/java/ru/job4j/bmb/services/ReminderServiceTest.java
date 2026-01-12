@@ -40,7 +40,7 @@ class ReminderServiceTest {
                 .atStartOfDay(ZoneId.systemDefault())
                 .toInstant()
                 .toEpochMilli() - 1;
-        moodLog.setCreateAt(yesterday);
+        moodLog.setCreatedAt(yesterday);
         moodLogRepository.save(moodLog);
         var tgUI = new TgUI(moodRepository);
         new ReminderService(sentContent, moodLogRepository, tgUI)
@@ -70,7 +70,7 @@ class ReminderServiceTest {
                 .atStartOfDay(ZoneId.systemDefault())
                 .toInstant()
                 .toEpochMilli() - 1;
-        moodLog.setCreateAt(yesterday);
+        moodLog.setCreatedAt(yesterday);
         moodLogRepository.save(moodLog);
         TgUI tgUI = new TgUI(moodRepository);
         new ReminderService(sentContent, moodLogRepository, tgUI)
@@ -100,7 +100,7 @@ class ReminderServiceTest {
                 .atStartOfDay(ZoneId.systemDefault())
                 .toInstant()
                 .toEpochMilli() - 1;
-        moodLog.setCreateAt(yesterday);
+        moodLog.setCreatedAt(yesterday);
         moodLogRepository.save(moodLog);
         TgUI tgUI = new TgUI(moodRepository);
         new ReminderService(sentContent, moodLogRepository, tgUI)
@@ -130,7 +130,7 @@ class ReminderServiceTest {
                 .plusHours(5)
                 .toInstant()
                 .toEpochMilli() - 1;
-        moodLog.setCreateAt(yesterday);
+        moodLog.setCreatedAt(yesterday);
         moodLogRepository.save(moodLog);
         TgUI tgUI = new TgUI(moodRepository);
         new ReminderService(sentContent, moodLogRepository, tgUI)

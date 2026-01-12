@@ -7,14 +7,14 @@ import org.telegram.telegrambots.meta.api.methods.send.SendAudio;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.job4j.bmb.aspects.SentContentExeption;
 import ru.job4j.bmb.content.Content;
 
 @Service
 public class TelegramBotService extends TelegramLongPollingBot implements SentContent {
-
     private final BotCommandHandler handler;
-    private String botName;
+    private final String botName;
 
     public TelegramBotService(@Value("${telegram.bot.name}") String botName,
                               @Value("${telegram.bot.token}") String botToken,
@@ -42,34 +42,38 @@ public class TelegramBotService extends TelegramLongPollingBot implements SentCo
 
     @Override
     public void sent(Content content) {
+        long chatId = content.getChatId();
+
         try {
             if (content.getAudio() != null) {
-                SendAudio sendAudio = new SendAudio();
-                sendAudio.setChatId(content.getChatId());
-                sendAudio.setAudio(content.getAudio());
-                if (content.getText() != null) {
-                    sendAudio.setCaption(content.getText());
-                }
-                execute(sendAudio);
-            } else if (content.getText() != null && !content.getText().isEmpty()) {
-                SendMessage sendMessage = new SendMessage();
-                sendMessage.setChatId(content.getChatId());
-                sendMessage.setText(content.getText());
-                if (content.getMarkup() != null) {
-                    sendMessage.setReplyMarkup(content.getMarkup());
-                }
-                execute(sendMessage);
-            } else if (content.getPhoto() != null) {
-                SendPhoto sendPhoto = new SendPhoto();
-                sendPhoto.setChatId(content.getChatId());
-                sendPhoto.setPhoto(content.getPhoto());
-                if (content.getText() != null) {
-                    sendPhoto.setCaption(content.getText());
-                }
-                execute(sendPhoto);
+                SendAudio audio = new SendAudio();
+                audio.setChatId(chatId);
+                audio.setAudio(content.getAudio());
+                audio.setCaption(content.getText());
+                execute(audio);
+                return;
             }
-        } catch (Exception e) {
+
+            if (content.getPhoto() != null) {
+                SendPhoto photo = new SendPhoto();
+                photo.setChatId(chatId);
+                photo.setPhoto(content.getPhoto());
+                photo.setCaption(content.getText());
+                execute(photo);
+                return;
+            }
+
+            if (content.getText() != null) {
+                SendMessage message = new SendMessage();
+                message.setChatId(chatId);
+                message.setText(content.getText());
+                if (content.getMarkup() != null) {
+                    message.setReplyMarkup(content.getMarkup());
+                }
+                execute(message);
+            }
+
+        } catch (TelegramApiException e) {
             throw new SentContentExeption("Ошибка отправки контента", e);
         }
-    }
-}
+    }}

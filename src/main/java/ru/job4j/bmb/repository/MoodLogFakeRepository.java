@@ -18,6 +18,11 @@ public class MoodLogFakeRepository extends CrudRepositoryFake<MoodLog, Long> imp
     }
 
     @Override
+    public List<MoodLog> findByUserClientIdAndCreatedAtBetween(Long clientId, long from, long to) {
+        return List.of();
+    }
+
+    @Override
     public List<MoodLog> findByUserId(Long userId) {
         return memory.values().stream()
                 .filter(moodLog -> moodLog.getUser().getId().equals(userId))
@@ -28,13 +33,13 @@ public class MoodLogFakeRepository extends CrudRepositoryFake<MoodLog, Long> imp
     public Stream<MoodLog> findByUserIdOrderByCreatedAtDesc(Long userId) {
         return memory.values().stream()
                 .filter(moodLog -> moodLog.getUser().getId().equals(userId))
-                .sorted(Comparator.comparing(MoodLog::getCreateAt).reversed());
+                .sorted(Comparator.comparing(MoodLog::getCreatedAt).reversed());
     }
 
     @Override
     public List<User> findUserWhoDidNotVoteToday(long startOfDay, long endOfDay) {
         return memory.values().stream()
-                .filter(moodLog -> moodLog.getCreateAt() < startOfDay)
+                .filter(moodLog -> moodLog.getCreatedAt() < startOfDay)
                 .map(MoodLog::getUser)
                 .distinct()
                 .collect(Collectors.toList());
@@ -44,7 +49,7 @@ public class MoodLogFakeRepository extends CrudRepositoryFake<MoodLog, Long> imp
     public List<MoodLog> findMoodLogsForWeek(Long userId, long weekStart) {
         return memory.values().stream()
                 .filter(moodLog -> moodLog.getUser().getId().equals(userId))
-                .filter(moodLog -> moodLog.getCreateAt() >= weekStart)
+                .filter(moodLog -> moodLog.getCreatedAt() >= weekStart)
                 .collect(Collectors.toList());
     }
 
@@ -52,7 +57,7 @@ public class MoodLogFakeRepository extends CrudRepositoryFake<MoodLog, Long> imp
     public List<MoodLog> findMoodLogsForMonth(Long userId, long monthStart) {
         return memory.values().stream()
                 .filter(moodLog -> moodLog.getUser().getId().equals(userId))
-                .filter(moodLog -> moodLog.getCreateAt() >= monthStart)
+                .filter(moodLog -> moodLog.getCreatedAt() >= monthStart)
                 .collect(Collectors.toList());
     }
 }

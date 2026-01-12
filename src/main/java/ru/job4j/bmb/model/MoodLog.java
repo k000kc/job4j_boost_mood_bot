@@ -10,13 +10,16 @@ public class MoodLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
     @ManyToOne
     @JoinColumn(name = "mood_id")
     private Mood mood;
-    private long createAt;
+
+    private long createdAt;
 
     public Long getId() {
         return id;
@@ -42,19 +45,16 @@ public class MoodLog {
         this.mood = mood;
     }
 
-    public long getCreateAt() {
-        return createAt;
+    public long getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreateAt(long createAt) {
-        this.createAt = createAt;
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
@@ -64,6 +64,6 @@ public class MoodLog {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hashCode(id);
     }
 }

@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "mb_achievemant")
-public class Achievemant {
+public class Achievement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -60,7 +60,7 @@ public class Achievemant {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Achievemant that = (Achievemant) o;
+        Achievement that = (Achievement) o;
         return Objects.equals(id, that.id);
     }
 

@@ -12,6 +12,8 @@ import java.util.stream.Stream;
 public interface MoodLogRepository extends CrudRepository<MoodLog, Long> {
     List<MoodLog> findAll();
 
+    List<MoodLog> findByUserClientIdAndCreatedAtBetween(Long clientId, long from, long to);
+
     List<MoodLog> findByUserId(Long userId);
 
     Stream<MoodLog> findByUserIdOrderByCreatedAtDesc(Long userId);
